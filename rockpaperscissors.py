@@ -11,7 +11,7 @@ list = ["камень", "ножницы", "бумага"]
 while True:
     comp_choice = random.choice(list)
     choice = input("Выберите знак: ")
-    if choice == comp_choice:
+    if choice.lower() == comp_choice:
         draw = draw + 1
         print("Ничья! Побед: " + str(player_win) + ", Ничьих: " + str(draw) + ", Поражений: " + str(comp_win))
 
