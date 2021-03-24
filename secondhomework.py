@@ -15,22 +15,41 @@ print ("""Калькулятор. Инструкция по использова
 
 a = float(input("Введите первое число: "))
 b = float(input("Введите второе число: "))
-mathop = input("Введите математическую операцию: ")
+math_op = input("Введите математическую операцию: ")
 
-if mathop == "+":
+if math_op == "+":
     print(float(a) + float(b))
-elif mathop == "-":
+
+elif math_op == "-":
     print(float(a) - float(b))
-elif mathop == "*":
+
+elif math_op == "*":
     print(float(a) * float(b))
-elif mathop == "/":
-    print(float(a) / float(b))
-elif mathop == "//":
-    print(float(a) // float(b))
-elif mathop == "%":
-    print(float(a) % float(b))
-elif mathop == "**":
+
+elif math_op == "/":
+
+    if a or b == 0:
+        print("На ноль делить нельзя!")
+    else:
+        print(float(a) / float(b))
+
+elif math_op == "//":
+
+    if a or b == 0:
+        print("На ноль делить нельзя!")
+    else:
+        print(float(a) // float(b))
+
+elif math_op == "%":
+
+    if a or b == 0:
+        print("На ноль делить нельзя!")
+    else:
+        print(float(a) % float(b))
+
+elif math_op == "**":
     print(float(a) ** float(b))
+
 else:
     print("Введите правильную математическую операцию")    
 
