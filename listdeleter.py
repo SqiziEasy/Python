@@ -1,6 +1,6 @@
 import random
 
-print("""Программа создаст два списка со случайными значениями, списки будут продемонстривованы.
+print("""Программа создаст два списка со случайными значениями от 0 до 25, списки будут продемонстривованы.
 При наличии совпадений, они будут удалены из первого списка.""")
 
 first_list = []
@@ -18,7 +18,7 @@ print("Первый список: " + str(first_list) + """
 Второй список: """ + str(second_list))
 
 for coincidence in second_list:
-    if coincidence in first_list:
+    while coincidence in first_list:
         first_list.remove(coincidence)
 
 print("Итоговый список: " + str(first_list))
