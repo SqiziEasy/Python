@@ -1,12 +1,9 @@
-from telegram.ext import Updater, InlineQueryHandler, CommandHandler, MessageHandler, Filters
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Updater, InlineQueryHandler, CallbackQueryHandler, CommandHandler, MessageHandler, Filters
 import requests
-from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+import math
 
-keyboard = ()
-
-objects_btn = KeyboardButton('Начать')
-
-keyboard.add(objects_btn)
+count_btn_inline = 3
 
 objects = [{
     "math": [
@@ -145,7 +142,7 @@ users = []
 
 def start(update, context):
     chat_id = update.message.chat_id
-    context.bot.send_message(chat_id=chat_id, text="Привет")
+
     users.append({
         str(chat_id): {
         "current_object": "",
@@ -154,16 +151,62 @@ def start(update, context):
         "completed_question": []
         }
     })
-    context.bot.send_message(chat_id=update.effective_chat.id, text=users)
+
+    keyboard = [[] for i in range(math.ceil(len(objects) / count_btn_inline))]
+
+    for idx, key in enumerate(objects):
+        keyboard[math.floor(idx / count_btn_inline)].append(InlineKeyboardButton(users[0][str(chat_id)]["current_object"], callback_data=('set_obj ' + str(key))))
+
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    context.bot.send_message(chat_id=chat_id, text="Выберите предмет", reply_markup=reply_markup)
+
+
+
+def button(update, context):
+    query = update.callback_query
+
+    command = query.data.split()
+
+    if command[0] == 'set_obj':
+        users[0][str(chat_id)]["current_object"] = "math"
+
+        msg = "Вы выбрали " + users[0][str(chat_id)]["current_object"] + " в качестве предмета для подготовки."  
+
+        query.edit_message_text(text=msg)
+
+    query.answer()
+
+
+
+#def echo(update, context):
+#    chat_id = update.message.chat_id
+#    if update.message.text == "Выбери предмет математика":
+#        users[0][str(chat_id)]["current_object"] = "math"
+#        context.bot.send_message(chat_id=update.effective_chat.id, text=users)
+#    elif update.message.text == "Выбери предмет русский":
+#        users[0][str(chat_id)]["current_object"] = "rus"
+#        context.bot.send_message(chat_id=update.effective_chat.id, text=users)
+#    elif update.message.text == "Выбери номер 1":
+#        users[0][str(chat_id)]["current_task_number"] = "1"
+#    elif update.message.text == "Выбери номер 2":
+#       users[0][str(chat_id)]["current_task_number"] = "2"
+#    elif update.message.text == "Выбери номер 3":
+#        users[0][str(chat_id)]["current_task_number"] = "3"
+
 
 
 
 
 def main():
-    updater = Updater('1787533409:AAGiSxbovcVvYE4dElEfnx2dKm01Oz-BCmM')
+    updater = Updater('1787533409:AAGiSxbovcVvYE4dElEfnx2dKm01Oz-BCmM', use_context=True)
+
     dp = updater.dispatcher
+
     dp.add_handler(CommandHandler('start', start))
-    #adding_user_handler = MessageHandler(Filters.text & (~Filters.command), adding_user)
+
+    dp.add_handler(CallbackQueryHandler(button))
+    #dp.add_handler(MessageHandler(Filters.text & (~Filters.command), echo))
     #dp.add_handler(adding_user_handler)
     updater.start_polling()
     updater.idle()
