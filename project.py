@@ -169,9 +169,18 @@ def button(update, context):
     command = query.data.split()
 
     if command[0] == 'set_obj':
-        users[0][str(chat_id)]["current_object"] = "math"
+        users[0][str(chat_id)]["current_object"] = command[1]
 
         msg = "Вы выбрали " + users[0][str(chat_id)]["current_object"] + " в качестве предмета для подготовки."  
+
+        query.edit_message_text(text=msg)
+
+    query.answer()
+
+    elif command[0] == 'set_n_of_task':
+        users[0][str(chat_id)]["current_task_number"] = command[1]
+
+        msg = "Вы выбрали " + users[0][str(chat_id)]["current_task_number"] + " в качестве номера для подготовки."  
 
         query.edit_message_text(text=msg)
 
