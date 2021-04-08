@@ -66,55 +66,55 @@ objects = {
     "rus": {
         "name": "Русский язык",
         "questions": [
-            [
+            [ #задание 17
                 {
                     "difficult": "1",
-                    "question": "текст задания",
-                    "answer": "ответ"
+                    "question": "Расставьте все знаки препинания: укажите цифру(-ы), на месте которой(-ых) в предложении должна(-ы) стоять запятая(-ые). \n Шагая по пахучему лиственному покрову (1) шумно рассыпающемуся под ногами (2) мы углубляемся в (3) покрытые лесом (4) горы.",
+                    "answer": "12"
                 }, 
                 {
                     "difficult": "2",
-                    "question": "текст задания",
-                    "answer": "ответ"
+                    "question": "Расставьте все знаки препинания: укажите цифру(-ы), на месте которой(-ых) в предложении должна(-ы) стоять запятая(-ые). \n Разноцветные заросли (1) образованные одиночными (2) и колониальными коралловыми полипами (3) хорошо видны сквозь прозрачные воды тёплых тропических морей (4) в тихий солнечный день.",
+                    "answer": "13"
                 },
                 {
                     "difficult": "3",
-                    "question": "текст задания",
-                    "answer": "ответ"
+                    "question": "Расставьте все знаки препинания: укажите цифру(-ы), на месте которой(-ых) в предложении должна(-ы) стоять запятая(-ые). \n В тишине сонно ползали пчёлы по цветам у балкона (1) совершая свою неспешную работу (2) и слышался (3) едва уловимый (4) лепет серебристой листвы тополей.",
+                    "answer": "12"
                 }
             ],
-            [
+            [ #задание 18
                 {
                     "difficult": "1",
-                    "question": "текст задания",
-                    "answer": "ответ"
+                    "question": "Расставьте все недостающие знаки препинания: укажите цифру(-ы), на месте которой(-ых) в предложении должна(-ы) стоять запятая(-ые). \n Зайдёт (1) бывало (2) солнце, и ниспадёт на бархатную зелень сада золотисто-красный пепел. Вокруг всё ощутимо темнеет, облитое (3) будто (4) тёплым сумраком, — ночь идёт.",
+                    "answer": "12"
                 }, 
                 {
                     "difficult": "2",
-                    "question": "текст задания",
-                    "answer": "ответ"
+                    "question": "Расставьте все недостающие знаки препинания: укажите цифру(-ы), на месте которой(-ых) в предложении должна(-ы) стоять запятая(-ые). \n Пожар (1) по рассказам очевидцев (2) начал распространяться с верхних этажей. Причиной его (3) по всей видимости (4) послужило неосторожное обращение с огнём.",
+                    "answer": "1234"
                 },
                 {
                     "difficult": "3",
-                    "question": "текст задания",
-                    "answer": "ответ"
+                    "question": "Расставьте все недостающие знаки препинания: укажите цифру(-ы), на месте которой(-ых) в предложении должна(-ы) стоять запятая(-ые). \n Море в этом городке (1) видно (2) отовсюду. Местные жители (3) однако (4) не спешат на пляж.",
+                    "answer": "34"
                 }
             ],
-            [
+            [ #задание 19
                 {
                     "difficult": "1",
-                    "question": "текст задания",
-                    "answer": "ответ"
+                    "question": "Расставьте все знаки препинания: укажите цифру(-ы), на месте которой(-ых) в предложении должна(-ы) стоять запятая(-ые). \n Теперь все живые сцены путешествия вошли в поэму (1) сюжет (2) которой (3) был достаточно неопределённым.",
+                    "answer": "1"
                 }, 
                 {
                     "difficult": "2",
-                    "question": "текст задания",
-                    "answer": "ответ"
+                    "question": "Расставьте все знаки препинания: укажите цифру(-ы), на месте которой(-ых) в предложении должна(-ы) стоять запятая(-ые). \n Человек высокого роста (1) при одном появлении (2) которого (3) люди почтительно замолкали (4) прошёл к столу и заговорил.",
+                    "answer": "14"
                 },
                 {
                     "difficult": "3",
-                    "question": "текст задания",
-                    "answer": "ответ"
+                    "question": "Расставьте все знаки препинания: укажите цифру(-ы), на месте которой(-ых) в предложении должна(-ы) стоять запятая(-ые). \n Алексей подошёл к широкому ручью (1) на обрывистом берегу (2) которого (3) он часто сидел в детстве (4) и остановился в задумчивости.",
+                    "answer": "14"
                 }
             ]
         ]
@@ -154,10 +154,21 @@ def go_to_completening_question_keyboard(update, context, chat_id):
 
     context.bot.send_message(chat_id=chat_id, text="Перейти к решению задания", reply_markup=reply_markup)
 
-    #keyboard = [[] for i in range(count_btn_inline)]
-    #keyboard[0].append(InlineKeyboardButton("Перейти к решению номера", callback_data=("go_to_completening_question"  + str(chat_id))))
-    #reply_markup = InlineKeyboardMarkup(keyboard)
-    #random.randint(0, objects[key]["questions"].len - 1)
+def checking_question(update, context):
+    chat_id = update.message.chat_id
+
+
+    answer = str(update.message.text)
+
+    #crnt_q = random.randint(0, len(objects[current_user_object]["questions"][int(users[int(command[2])]["current_task_number"])]) - 1)
+
+    print(objects[users[int(chat_id)]["current_object"]]["questions"][int(users[int(chat_id)]["current_task_number"])][crnt_q]["answer"])
+
+    if answer == objects[users[int(chat_id)]["current_object"]]["questions"][int(users[int(chat_id)]["current_task_number"])][crnt_q]["answer"]:
+        context.bot.send_message(chat_id=chat_id, text="Правильный ответ!")
+    else:
+        context.bot.send_message(chat_id=chat_id, text="Ответ неправильный")
+
 
 def button(update, context):
     query = update.callback_query
@@ -195,17 +206,29 @@ def button(update, context):
 
         current_user_object = users[int(command[2])]["current_object"]
 
+        global crnt_q
+
         crnt_q = random.randint(0, len(objects[current_user_object]["questions"][int(users[int(command[2])]["current_task_number"])]) - 1)
 
-        message = objects[current_user_object]["questions"][int(users[int(command[2])]["current_task_number"])][crnt_q]["question"]
+        mssg = objects[current_user_object]["questions"][int(users[int(command[2])]["current_task_number"])][crnt_q]["question"]
 
-        context.bot.send_message(chat_id=command[2], text=message)
+        context.bot.send_message(chat_id=command[2], text=mssg)
+
+        checking_question(update, context)
+
+        #answer = Message.from_user(chat_id=command[2])
+
+        #if answer == objects[current_user_object]["questions"][int(users[int(command[2])]["current_task_number"])][crnt_q]["answer"]:
+        #    context.bot.send_message(chat_id=command[2], text="Правильный ответ!")
+        #else:
+        #    context.bot.send_message(chat_id=command[2], text="Ответ неправильный")
 
     elif command[0] == 'go_to_set_object':
         gen_set_obj_keyboard(update, context, command[1])
 
     elif command[0] == "go_to_completening_question":
-        go_to_completening_question_keyboard(update, context, command[2])
+        gen_set_obj_keyboard(update, context, command[1])
+
 
     query.answer()
 
@@ -217,7 +240,7 @@ def main():
 
     dp.add_handler(CommandHandler('start', start))
     dp.add_handler(CallbackQueryHandler(button))
-
+    dp.add_handler(MessageHandler(Filters.text & (~Filters.command), checking_question))
     updater.start_polling()
     updater.idle()
 
